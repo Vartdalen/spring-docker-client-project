@@ -8,58 +8,50 @@
 </head>
 <body>
 
-
-
-  <div class="container">
+    <div class="container">
       <h3 class="text-primary"> Spring Boot REST API DEMO  </h3>
       <div class="col-sm-6  my-5">
 
-          <h5 class="text-primary">Register New Building </h5>
-          <form th:action="@{/saveBuilding}" modelAttribute="building" method="post">
-              <input type="hidden"  th:value="${building.id}" name="id">
+          <h5 class="text-primary">Register New Ticket </h5>
+          <form th:action="@{/tickets}" modelAttribute="ticket" method="post">
+              <input type="hidden"  th:value="${ticket.id}" name="id">
           <div class="form-group">
-              <input type="text"  th:value="${building.name}" name="name" class="form-control" placeholder="Name">
+              <input type="text"  th:value="${ticket.cinema}" name="cinema" class="form-control" placeholder="Cinema">
           </div>
           <div class="form-group">
-              <input type="text" th:value="${building.address}" name="address" class="form-control" placeholder="Address">
+              <input type="text" th:value="${ticket.film}" name="film" class="form-control" placeholder="Film">
           </div>
 
               <button class="btn btn-success">Save</button>
           </form>
       </div>
-  </div>
+    </div>
 
+    <div th:if="${!tickets.empty}">
+        <table class="table col-sm-6">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Address</th>
+            </tr>
+            <tbody>
 
+            <tr th:each="ticket : ${tickets}">
+                <td th:text="${ticket.id}"></td>
+                <td th:text="${ticket.user.email}"></td>
+                <td th:text="${ticket.film}"></td>
 
-<div th:if="${!buildings.empty}">
-    <table class="table col-sm-6">
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Address</th>
-        </tr>
-        <tbody>
+                <td>
+                    <a class="btn btn-warning" th:href="@{/tickets/edit/}+${ticket.id}">Edit</a>
+                </td>
+                <td>
+                    <a class="btn btn-danger" th:href="@{/tickets/delete/}+${ticket.id}">Delete</a>
+                </td>
+            </tr>
 
-        <tr th:each="building : ${buildings}">
-            <td th:text="${building.id}"></td>
-            <td th:text="${building.name}"></td>
-            <td th:text="${building.address}"></td>
-
-            <td>
-                <a class="btn btn-warning" th:href="@{/edit/}+${building.id}">Edit</a>
-            </td>
-            <td>
-                <a class="btn btn-danger" th:href="@{/delete/}+${building.id}">Delete</a>
-            </td>
-        </tr>
-
-
-
-        </tbody>
-    </table>
-</div>
-
-
+            </tbody>
+        </table>
+    </div>
 
 </body>
 </html>
