@@ -7,22 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
 public class TicketController {
 
     @Autowired
     private TicketService ticketService;
-
-    @GetMapping("/")
-    public String home(Model model) {
-        Ticket ticket  = new Ticket();
-        List<Ticket> ticketList = ticketService.getAllTickets();
-        model.addAttribute("ticket", ticket);
-        model.addAttribute("tickets", ticketList);
-        return "index";
-    }
 
     @PostMapping("/tickets")
     public String saveTicket(@ModelAttribute("ticket") Ticket newTicket) {
