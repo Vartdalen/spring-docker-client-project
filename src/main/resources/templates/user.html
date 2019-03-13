@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+    <section class="content-header" th:replace="headers/imports.html::imports"></section>
+    <section class="content-header" th:replace="headers/navbar.html::navbar"></section>
+    <section class="content-header" th:replace="../static/css/form.html::form"></section>
+
+    <main class="my-form">
+        <div class="container-lg">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">Register</div>
+                        <div class="card-body">
+                            <form th:action="@{/user}" modelAttribute="user" method="post">
+                                <div class="form-group row">
+                                    <label for="first_name" class="col-md-4 col-form-label text-md-right">First name</label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="first_name" class="form-control" name="firstName" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="last_name" class="col-md-4 col-form-label text-md-right">Last name</label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="last_name" class="form-control" name="lastName" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="email_address" class="col-md-4 col-form-label text-md-right">E-mail address</label>
+                                    <div class="col-md-6">
+                                        <input type="email" id="email_address" class="form-control" name="email" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+                                    <div class="col-md-6">
+                                        <input type="password" id="password" class="form-control" name="password" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="role" class="col-md-4 col-form-label text-md-right">Role</label>
+                                    <div class="col-md-6">
+                                        <select class="form-control" id="role" name="role" required>
+                                            <option>USER</option>
+                                            <option>ADMIN</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 offset-md-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        Register
+                                    </button>
+                                </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </main>
+
+</body>
+</html>

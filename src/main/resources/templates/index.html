@@ -1,57 +1,35 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <title>Home</title>
+    <title>Viktors Cinema</title>
 </head>
 <body>
-
-    <div class="container">
-      <h3 class="text-primary"> Spring Boot REST API DEMO  </h3>
-      <div class="col-sm-6  my-5">
-
-          <h5 class="text-primary">Register New Ticket </h5>
-          <form th:action="@{/tickets}" modelAttribute="ticket" method="post">
-              <input type="hidden"  th:value="${ticket.id}" name="id">
-          <div class="form-group">
-              <input type="text"  th:value="${ticket.cinema}" name="cinema" class="form-control" placeholder="Cinema">
-          </div>
-          <div class="form-group">
-              <input type="text" th:value="${ticket.film}" name="film" class="form-control" placeholder="Film">
-          </div>
-
-              <button class="btn btn-success">Save</button>
-          </form>
-      </div>
-    </div>
-
-    <div th:if="${!tickets.empty}">
-        <table class="table col-sm-6">
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Address</th>
-            </tr>
-            <tbody>
-
-            <tr th:each="ticket : ${tickets}">
-                <td th:text="${ticket.id}"></td>
-                <td th:text="${ticket.user.email}"></td>
-                <td th:text="${ticket.film}"></td>
-
-                <td>
-                    <a class="btn btn-warning" th:href="@{/tickets/edit/}+${ticket.id}">Edit</a>
-                </td>
-                <td>
-                    <a class="btn btn-danger" th:href="@{/tickets/delete/}+${ticket.id}">Delete</a>
-                </td>
-            </tr>
-
-            </tbody>
-        </table>
-    </div>
-
+    <section class="content-header" th:replace="headers/imports.html::imports"></section>
+    <section class="content-header" th:replace="headers/navbar.html::navbar"></section>
+    <main>
+        <div class="container-lg">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">Index</div>
+                        <div class="card-body">
+                            <table th:if="${error}">
+                            <table>
+                                <tr>
+                                    <td>Error code:</td>
+                                    <td th:text="${error.code}" style="padding-left: 3em"></td>
+                                </tr>
+                                <tr>
+                                    <td>Error message:</td>
+                                    <td th:text="${error.message}" style="padding-left: 3em"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 </body>
 </html>

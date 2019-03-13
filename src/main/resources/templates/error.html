@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <!--<title th:text="error == null ? 'Error' : 'Error ' + ${error.code}"></title>-->
+    <title>Error</title>
+</head>
+<body>
+<section class="content-header" th:replace="headers/imports.html::imports"></section>
+<section class="content-header" th:replace="../static/css/error.html::error"></section>
+    <main class="bsod container">
+        <h1 class="neg title">
+            <span class="bg">Error</span>
+            <span class="bg" th:text="error == null ? 'Unknown' : ${error.code}"></span>
+        </h1>
+        <p>An error has occured, to continue:</p>
+        <p>* Return to homepage.</p>
+
+        <nav class="nav">
+            <a href="/" class="link">index</a>
+        </nav>
+    </main>
+</body>
+</html>

@@ -23,6 +23,11 @@ public class UserService {
         return user;
     }
 
+    public User getUserByEmail(String email) {
+        User user = restTemplate.getForObject(BASE_URL+"/"+email, User.class);
+        return user;
+    }
+
     public User saveUser(User newUser) { return restTemplate.postForObject(BASE_URL, newUser, User.class); }
 
     public void updateUser(long id, User updatedUser) { restTemplate.put(BASE_URL+"/"+id, updatedUser); }

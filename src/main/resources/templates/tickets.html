@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <section class="content-header" th:replace="headers/imports.html::imports"></section>
+    <section class="content-header" th:replace="headers/navbar.html::navbar"></section>
+
+    <main class="container">
+        <div class="row my-5">
+            <div class="col-sm-8 mx-auto">
+                <h4 class="text-primary text-center">Ticket List</h4>
+                <input type="text" class="form-control" placeholder="Search" id="search" style="margin-top: 2em; margin-bottom: 2em;"/>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">
+                            <abbr title="Format is YYYY MM DD"><span>Date</span></abbr>
+                        </th>
+                        <th scope="col">Film</th>
+                        <th scope="col">Cinema</th>
+                        <th scope="col">
+                            <abbr title="Ticket has been claimed by listed user"><span>User</span></abbr>
+                        </th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody id="table">
+                    <th:block th:each="ticket : ${tickets}">
+                        <tr>
+                            <td th:text="${ticket.id}"></td>
+                            <td th:text="${ticket.date}"></td>
+                            <td th:text="${ticket.film}"></td>
+                            <td th:text="${ticket.cinema}"></td>
+                            <td><span th:if="${ticket.user}" th:text="${ticket.user.email}"></span></td>
+                            <td>
+                                <a th:if="${user != null}" th:href="@{|/tickets/claim/${ticket.id}|}" class="btn btn-white btn-lg text-warning"><i class="fa fa-ticket"></i></a>
+                            </td>
+                            <td>
+                                <a th:if="${user != null && user.role == 'ADMIN'}" th:href="@{|/tickets/delete/${ticket.id}|}" class="btn btn-white btn-lg text-danger post"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    </th:block>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </main>
+
+    <section class="content-header" th:replace="scripts/search::search"></section>
+
+</body>
+</html>
