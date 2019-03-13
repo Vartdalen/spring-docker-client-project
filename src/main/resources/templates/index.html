@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <title>Home</title>
+</head>
+<body>
+
+
+
+  <div class="container">
+      <h3 class="text-primary"> Spring Boot REST API DEMO  </h3>
+      <div class="col-sm-6  my-5">
+
+          <h5 class="text-primary">Register New Building </h5>
+          <form th:action="@{/saveBuilding}" modelAttribute="building" method="post">
+              <input type="hidden"  th:value="${building.id}" name="id">
+          <div class="form-group">
+              <input type="text"  th:value="${building.name}" name="name" class="form-control" placeholder="Name">
+          </div>
+          <div class="form-group">
+              <input type="text" th:value="${building.address}" name="address" class="form-control" placeholder="Address">
+          </div>
+
+              <button class="btn btn-success">Save</button>
+          </form>
+      </div>
+  </div>
+
+
+
+<div th:if="${!buildings.empty}">
+    <table class="table col-sm-6">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Address</th>
+        </tr>
+        <tbody>
+
+        <tr th:each="building : ${buildings}">
+            <td th:text="${building.id}"></td>
+            <td th:text="${building.name}"></td>
+            <td th:text="${building.address}"></td>
+
+            <td>
+                <a class="btn btn-warning" th:href="@{/edit/}+${building.id}">Edit</a>
+            </td>
+            <td>
+                <a class="btn btn-danger" th:href="@{/delete/}+${building.id}">Delete</a>
+            </td>
+        </tr>
+
+
+
+        </tbody>
+    </table>
+</div>
+
+
+
+</body>
+</html>
