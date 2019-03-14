@@ -31,7 +31,7 @@
                     </tr>
                     </thead>
                     <tbody id="table">
-                    <th:block th:each="ticket : ${tickets}">
+                    <th:block th:each="ticket : ${ticketList}">
                         <tr>
                             <td th:text="${ticket.id}"></td>
                             <td th:text="${ticket.date}"></td>
@@ -39,10 +39,10 @@
                             <td th:text="${ticket.cinema}"></td>
                             <td><span th:if="${ticket.user}" th:text="${ticket.user.email}"></span></td>
                             <td>
-                                <a th:if="${user != null}" th:href="@{|/tickets/claim/${ticket.id}|}" class="btn btn-white btn-lg text-warning"><i class="fa fa-ticket"></i></a>
+                                <a th:if="${user != null && user.role != null}" th:href="@{|/ticket/claim/${ticket.id}|}" class="btn btn-white btn-lg text-warning"><i class="fa fa-ticket"></i></a>
                             </td>
                             <td>
-                                <a th:if="${user != null && user.role == 'ADMIN'}" th:href="@{|/tickets/delete/${ticket.id}|}" class="btn btn-white btn-lg text-danger post"><i class="fa fa-trash"></i></a>
+                                <a th:if="${user != null && user.role == 'ADMIN'}" th:href="@{|/ticket/delete/${ticket.id}|}" class="btn btn-white btn-lg text-danger post"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                     </th:block>

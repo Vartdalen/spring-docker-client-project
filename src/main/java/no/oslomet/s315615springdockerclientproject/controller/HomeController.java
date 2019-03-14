@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.Optional;
+
 @Controller
 public class HomeController {
 
@@ -22,7 +24,9 @@ public class HomeController {
     }
 
     private void setUserModel(Model model, Authentication auth, UserService userService) {
-        User user = userService.getUserByEmail(auth.getName());
-        model.addAttribute("user", user);
+        Optional<User> user = userService.getUserByEmail(auth.getName());
+        if(user.isPresent()) {
+            model.addAttribute("user", user.get());
+        }
     }
 }

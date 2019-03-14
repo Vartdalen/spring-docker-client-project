@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @Controller
 public class UserController {
 
@@ -16,9 +18,8 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/user")
-    public String registerUser(Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        setUserModel(model, authentication, userService);
+    public String newUser(Model model) {
+        setUserModel(model, SecurityContextHolder.getContext().getAuthentication(), userService);
         return "user";
     }
 
@@ -28,21 +29,23 @@ public class UserController {
         return "redirect:/";
     }
 
-    @GetMapping("user/edit/{id}")
-    public String updateUser(@PathVariable long id, Model model) {
-        model.addAttribute("user", userService.getUserById(id));
-        model.addAttribute("users", userService.getAllUsers());
-        return "index";
-    }
-
-    @GetMapping("user/delete/{id}")
-    public String deleteUser(@PathVariable long id) {
-        userService.deleteUserById(id);
-        return "redirect:/";
-    }
+//    @GetMapping("user/edit/{id}")
+//    public String updateUser(@PathVariable long id, Model model) {
+//        model.addAttribute("user", userService.getUserById(id));
+//        model.addAttribute("users", userService.getAllUsers());
+//        return "index";
+//    }
+//
+//    @GetMapping("user/delete/{id}")
+//    public String deleteUser(@PathVariable long id) {
+//        userService.deleteUserById(id);
+//        return "redirect:/";
+//    }
 
     private void setUserModel(Model model, Authentication auth, UserService userService) {
-        User user = userService.getUserByEmail(auth.getName());
-        model.addAttribute("user", user);
+        Optional<User> user = userService.getUserByEmail(auth.getName());
+        if(user.isPresent()) {
+            model.addAttribute("user", user.get());
+        }
     }
 }
