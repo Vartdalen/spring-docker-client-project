@@ -2,7 +2,6 @@ package no.oslomet.s315615springdockerclientproject.service;
 
 import no.oslomet.s315615springdockerclientproject.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
