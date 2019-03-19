@@ -45,9 +45,12 @@ public class TicketController {
     }
 
     @GetMapping("ticket/edit/{id}")
-    public String updateTicket(@PathVariable long id, Model model) {
-        model.addAttribute("ticket", ticketService.getTicketById(id));
-        model.addAttribute("tickets", ticketService.getAllTickets());
+    public String updateTicket(@PathVariable long id) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.getUserByEmail(auth.getName()).get();
+        Ticket ticket = ticketService.getTicketById(id);
+        ticket.setUser(user);
+        ticketService.saveTicket(ticket);
         return "redirect:/tickets";
     }
 

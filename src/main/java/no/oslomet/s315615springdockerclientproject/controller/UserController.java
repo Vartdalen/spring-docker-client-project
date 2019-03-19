@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.Optional;
 
@@ -24,9 +25,13 @@ public class UserController {
     }
 
     @PostMapping("/user")
-    public String saveUser(@ModelAttribute("user") User newUser) {
-        userService.saveUser(newUser);
-        return "redirect:/";
+    public String saveUser(@ModelAttribute("user") User newUser) throws HttpClientErrorException {
+        try {
+            userService.saveUser(newUser);
+            return "redirect:/";
+        } catch (HttpClientErrorException e) {
+            return "redirect:/error";
+        }
     }
 
 //    @GetMapping("user/edit/{id}")

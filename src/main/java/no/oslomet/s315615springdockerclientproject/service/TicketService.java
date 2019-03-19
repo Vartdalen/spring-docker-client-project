@@ -27,10 +27,6 @@ public class TicketService {
         return restTemplate.postForObject(BASE_URL, newTicket, Ticket.class);
     }
 
-    public void updateTicket(long id, Ticket updatedTicket) {
-          restTemplate.put(BASE_URL+"/"+id, updatedTicket);
-    }
-
     public void deleteTicketById(long id) {
         restTemplate.delete(BASE_URL+"/"+id);
     }
