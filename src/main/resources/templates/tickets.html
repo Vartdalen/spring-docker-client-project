@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Ticket List</title>
 </head>
 <body>
     <section class="content-header" th:replace="headers/imports.html::imports"></section>
@@ -39,7 +39,7 @@
                             <td th:text="${ticket.cinema}"></td>
                             <td><span th:if="${ticket.user}" th:text="${ticket.user.email}"></span></td>
                             <td>
-                                <a th:if="${user != null && user.role != null}" th:href="@{|/ticket/edit/${ticket.id}|}" class="btn btn-white btn-lg text-warning"><i class="fa fa-ticket"></i></a>
+                                <a th:if="${user != null && user.role != null}" th:href="@{|/ticket/claim/${ticket.id}|}" class="btn btn-white btn-lg text-warning"><i class="fa fa-ticket"></i></a>
                             </td>
                             <td>
                                 <a th:if="${user != null && user.role == 'ADMIN'}" th:href="@{|/ticket/delete/${ticket.id}|}" class="btn btn-white btn-lg text-danger post"><i class="fa fa-trash"></i></a>
