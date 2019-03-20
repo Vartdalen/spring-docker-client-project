@@ -2,11 +2,9 @@ package no.oslomet.s315615springdockerclientproject.service;
 
 import no.oslomet.s315615springdockerclientproject.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
@@ -29,21 +27,24 @@ public class UserService {
     }
 
     public User getUserById(long id) {
-        User user = restTemplate.getForObject(BASE_URL+"/"+id, User.class);
-        return user;
+        return restTemplate.getForObject(BASE_URL+"/"+id, User.class);
     }
 
     public Optional<User> getUserByEmail(String email) {
+        ResponseEntity<User> response;
         try {
-            return Optional.ofNullable(restTemplate.getForObject(BASE_URL+"/"+email, User.class));
+            response = restTemplate.getForEntity(BASE_URL+"/"+email, User.class);
+            return Optional.ofNullable(response.getBody());
         } catch (RestClientException e) {
             return Optional.empty();
         }
     }
 
     public User saveUser(User newUser) {
+        ResponseEntity<User> response;
         newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
-        return restTemplate.postForObject(BASE_URL, newUser, User.class);
+        response = restTemplate.postForEntity(BASE_URL, newUser, User.class);
+        return response.getBody();
     }
 
     public void updateUser(long id, User updatedUser) { restTemplate.put(BASE_URL+"/"+id, updatedUser); }

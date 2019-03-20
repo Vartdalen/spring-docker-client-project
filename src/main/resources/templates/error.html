@@ -10,8 +10,10 @@
     <main class="bsod container">
         <h1 class="neg title">
             <span class="bg">Error</span>
-            <span class="bg" th:text="error == null ? 'Unknown' : ${error.code}"></span>
+            <span th:if="${error != null && error.code != null}"><span class="bg" th:text="${error.code}"></span></span>
         </h1>
+        <div th:if="${error != null && error.message != null}"><p th:text="${error.message}"></p><br/></div>
+
         <p>An error has occured, to continue:</p>
         <p>* Return to homepage.</p>
 
