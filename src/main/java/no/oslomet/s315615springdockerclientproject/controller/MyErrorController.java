@@ -1,7 +1,12 @@
 package no.oslomet.s315615springdockerclientproject.controller;
 
 import no.oslomet.s315615springdockerclientproject.model.Error;
+import no.oslomet.s315615springdockerclientproject.model.User;
+import no.oslomet.s315615springdockerclientproject.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.error.ErrorController;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -11,10 +16,14 @@ import org.springframework.web.client.HttpClientErrorException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 
 @Controller
 @ControllerAdvice
 public class MyErrorController implements ErrorController {
+
+    @Autowired
+    private UserService userService;
 
     public MyErrorController() {}
 
@@ -23,7 +32,8 @@ public class MyErrorController implements ErrorController {
         Error error = new Error();
         appendExceptionInformation(error, exception);
         model.addAttribute("error", error);
-        return "error";
+        setUserModel(model, SecurityContextHolder.getContext().getAuthentication(), userService);
+        return "index";
     }
 
     @GetMapping("/error")
@@ -31,7 +41,8 @@ public class MyErrorController implements ErrorController {
         Error error = new Error();
         appendClientErrorInformation(error, request, "Client server error");
         model.addAttribute("error", error);
-        return "error";
+        setUserModel(model, SecurityContextHolder.getContext().getAuthentication(), userService);
+        return "index";
     }
 
     @GetMapping("/error/login")
@@ -69,6 +80,13 @@ public class MyErrorController implements ErrorController {
             error.setMessage(statusMessage.toString());
         } else {
             error.setMessage(message);
+        }
+    }
+
+    private void setUserModel(Model model, Authentication auth, UserService userService) {
+        Optional<User> user = userService.getUserByEmail(auth.getName());
+        if(user.isPresent()) {
+            model.addAttribute("user", user.get());
         }
     }
 }
