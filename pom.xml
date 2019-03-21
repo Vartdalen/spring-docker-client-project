@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>no.oslomet</groupId>
-    <artifactId>s315615-spring-docker-client-projectt</artifactId>
+    <artifactId>s315615-spring-docker-client-project</artifactId>
     <version>1.0.0</version>
     <packaging>war</packaging>
     <name>s315615-spring-docker-client-project</name>
